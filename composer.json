@@ -11,8 +11,6 @@
         "symfony/framework-bundle": "5.1.*",
         "symfony/yaml": "5.1.*"
     },
-    "require-dev": {
-    },
     "config": {
         "optimize-autoloader": true,
         "preferred-install": {
@@ -59,5 +57,9 @@
             "allow-contrib": false,
             "require": "5.1.*"
         }
+    },
+    "require-dev": {
+        "symfony/debug-bundle": "5.1.*",
+        "symfony/var-dumper": "5.1.*"
     }
 }
