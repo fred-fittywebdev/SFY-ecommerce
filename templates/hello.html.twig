@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<title>Coucou !</title>
+	</head>
+	<body>
+		<h1>Hello
+			{{ prenom }}
+			!</h1>
+		<ul>
+			{% for age in ages %}
+				{% if age >= 18 %}
+					<li>Vous êtes adulte</li>
+				{% else %}
+					<li>Vous êtes enfant</li>
+				{% endif %}
+
+			{% endfor %}
+		</ul>
+	</body>
+</html>
