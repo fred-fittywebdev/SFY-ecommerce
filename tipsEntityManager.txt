@@ -1,0 +1,44 @@
+<?php
+
+namespace App\Controller;
+
+use App\Entity\Product;
+use App\Repository\ProductRepository;
+use Doctrine\ORM\EntityManagerInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+
+class HomeController extends AbstractController
+{
+    /**
+     * @Route("/", name="homepage")
+     */
+    public function homepage(EntityManagerInterface $em)
+    {
+        //suppression produit
+        $productRepository = $em->getRepository(Product::class);
+        $product = $productRepository->find(3);
+        $em->remove($product);
+        $em->flush();
+
+
+        //modif produit
+        // $productRepository = $em->getRepository(Product::class);
+        // $product = $productRepository->find(4);
+        // $product->setName('Chaise en rotin');
+        // $product->setSlug('chaise-en-rotin');
+        // $product->setPrice(5000);
+        // $em->flush();
+
+        //$product = new Product; -> Ajout produit
+        // $product
+        //     ->setName('Chaise en plastique')
+        //     ->setPrice(1000)
+        //     ->setSlug('chaise-en-plastique');
+        // $em->persist($product); uniquement si l'entité n'existe pas
+        // $em->flush();
+        //dd($product);
+
+        return $this->render('home.html.twig');
+    }
+}
