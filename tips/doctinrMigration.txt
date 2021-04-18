@@ -1,0 +1,48 @@
+-------------COMMANDE DOCTRINE--------------
+Command "doctrine" is not defined.             
+                                                 
+  Did you mean one of these?                     
+      doctrine:cache:clear-collection-region     
+      doctrine:cache:clear-entity-region         
+      doctrine:cache:clear-metadata              
+      doctrine:cache:clear-query                 
+      doctrine:cache:clear-query-region          
+      doctrine:cache:clear-result                
+      doctrine:database:create                   
+      doctrine:database:drop                     
+      doctrine:database:import                   
+      doctrine:ensure-production-settings        
+      doctrine:mapping:convert                   
+      doctrine:mapping:import                    
+      doctrine:mapping:info                      
+      doctrine:migrations:current                
+      doctrine:migrations:diff                   
+      doctrine:migrations:dump-schema            
+      doctrine:migrations:execute                
+      doctrine:migrations:generate               
+      doctrine:migrations:latest                 
+      doctrine:migrations:list                   
+      doctrine:migrations:migrate                
+      doctrine:migrations:rollup                 
+      doctrine:migrations:status                 
+      doctrine:migrations:sync-metadata-storage  
+      doctrine:migrations:up-to-date             
+      doctrine:migrations:version                
+      doctrine:query:dql                         
+      doctrine:query:sql                         
+      doctrine:schema:create                     
+      doctrine:schema:drop                       
+      doctrine:schema:update                     
+      doctrine:schema:validate  
+
+Si on veut revenir sur une migration ou sur plusieurs taper
+syfmfony console doctrine:migrations:migrate --help
+ You can optionally manually specify the version you wish to migrate to:
+  
+      bin/console doctrine:migrations:migrate FQCN(YYYYMMDDHHMMSS)
+  
+  You can specify the version you wish to migrate to using an alias:
+  
+      bin/console doctrine:migrations:migrate prev
+      These alias are defined : first, latest, prev, current and next
+
