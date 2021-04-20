@@ -1,11 +1,10 @@
+--------- Avec mes propres options -------
 <?php
 
 namespace App\Controller;
 
-use App\Entity\Category;
 use App\Repository\CategoryRepository;
 use App\Repository\ProductRepository;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\MoneyType;
@@ -59,27 +58,74 @@ class ProductController extends AbstractController
     /**
      * @Route("/admin/product/create", "product_create")
      */
-    public function create(FormFactoryInterface $factory)
+    public function create(FormFactoryInterface $factory, CategoryRepository $categoryRepository)
     {
         $builder = $factory->createBuilder();
         $builder->add('name', TextType::class, [
             'label' => 'Nom du produit',
-            'attr' => ['placeholder' => 'Entrez le nom du produit']
+            'attr' => ['class' => 'form-control', 'placeholder' => 'Entrez le nom du produit']
         ])
             ->add('shortDescription', TextareaType::class, [
                 'label' => 'Description courte',
                 'attr' => [
+                    'class' => 'form-control',
                     'placeholder' => 'Entrez une courte description du produit'
                 ]
             ])
             ->add('price', MoneyType::class, [
                 'label' => 'Prix du produit en  ',
                 'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Entrez le prix du produit en €'
+                ]
+            ]);
+
+        $options = [];
+        foreach ($categoryRepository->findAll() as $category) {
+            $options[$category->getName()] = $category->getId();
+        }
+
+        $builder->add('category', ChoiceType::class, [
+            'label' => 'Catégories',
+            'attr' => ['class' => 'form-control'],
+            'placeholder' => '--- Choisir une catégorie ---',
+            'choices' => $options
+        ]);
+
+        $form = $builder->getForm();
+        $formView = $form->createView();
+
+        return $this->render('product/create.html.twig', [
+            'formView' => $formView
+        ]);
+    }
+}
+
+------------- AVEC ENTITY TYPE -----------
+public function create(FormFactoryInterface $factory)
+    {
+        $builder = $factory->createBuilder();
+        $builder->add('name', TextType::class, [
+            'label' => 'Nom du produit',
+            'attr' => ['class' => 'form-control', 'placeholder' => 'Entrez le nom du produit']
+        ])
+            ->add('shortDescription', TextareaType::class, [
+                'label' => 'Description courte',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Entrez une courte description du produit'
+                ]
+            ])
+            ->add('price', MoneyType::class, [
+                'label' => 'Prix du produit en  ',
+                'attr' => [
+                    'class' => 'form-control',
                     'placeholder' => 'Entrez le prix du produit en €'
                 ]
             ])
             ->add('category', EntityType::class, [
                 'label' => 'Catégories',
+                'attr' => ['class' => 'form-control'],
                 'placeholder' => '--- Choisir une catégorie ---',
                 'class' => Category::class,
                 'choice_label' => function (Category $category) {
@@ -94,4 +140,48 @@ class ProductController extends AbstractController
             'formView' => $formView
         ]);
     }
-}
+
+--------- Exepmle twig avec la décompsoition de {{form}} ----------
+{% extends "base.html.twig" %}
+
+{% block title %}
+	Création d'un produit
+{% endblock %}
+
+{% block body %}
+	<h2>Nouveau produit</h2>
+
+	{# {{ form(formView) }} #}
+	{{ form_start(formView) }}
+
+	{{ form_errors(formView) }}
+	{# {{ form_widget(formView) }} #}
+	{# {{ form_row(formView.name) }} #}
+		<p>
+		{{ form_label(formView.name) }}
+		{{ form_errors(formView.name) }}
+			<span><em>
+			&nbsp; Veillez entrer une description courte
+		</em>
+		</span>
+		{{ form_widget(formView.name) }}
+	{{ form_help(formView.name) }}
+	</p>
+
+		<p>
+	{{ form_row(formView.shortDescription) }}
+	</p>
+		<p>
+	{{ form_row(formView.price) }}
+	</p>
+		<p>
+	{{ form_row(formView.category) }}
+	</p>
+
+		<button type="submit" class="btn btn-primary"> <i class="fas fa-save"></i>
+		Créer le produit
+	</button>
+
+	{{ form_end(formView) }}
+
+{% endblock %}

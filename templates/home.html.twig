@@ -6,7 +6,7 @@
 	<h1 class="mb-4">Nos produits phares</h1>
 	<div class="row">
 		{% for p in products %}
-			<div class="col">
+			<div class="col-md-6 col-lg-4">
 				<div class="card">
 					<img src="{{ p.mainPicture }}" class="img-fluid" alt="photo du produit">
 					<div class="card-body">
@@ -22,9 +22,9 @@
 							{{ p.shortDescription }}
 						</p>
 						<a href=" {{path('product_show', {
-														'category_slug': p.category.slug,
-														'slug': p.slug
-														})}} " class="btn btn-primary btn-small">Détails</a>
+																																																	'category_slug': p.category.slug,
+																																																	'slug': p.slug
+																																																	})}} " class="btn btn-primary btn-small">Détails</a>
 						<a href="#" class="btn btn-success btn-small">Ajouter</a>
 					</div>
 				</div>
