@@ -8,7 +8,7 @@
 	<h2>Editer le produit
 		{{ product.name }}</h2>
 
-	{{ form_start(formView) }}
+	{{ form_start(formView, {'attr': {'novalidate': 'novalidate'}}) }}
 
 	{{ form_errors(formView) }}
 
