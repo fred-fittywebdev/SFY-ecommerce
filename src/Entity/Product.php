@@ -9,6 +9,7 @@ use Symfony\Component\Validator\Mapping\ClassMetadata;
 
 /**
  * @ORM\Entity(repositoryClass=ProductRepository::class)
+ * @ORM\Table(name="product", indexes={@ORM\Index(columns={"name", "short_description"}, flags={"fulltext"})})
  */
 class Product
 {
