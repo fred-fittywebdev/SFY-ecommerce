@@ -25,6 +25,10 @@ class HomeController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //on cherhce les produits
+            $products = $productRepository->search(
+                $search->get('mots')->getData(),
+                $search->get('categorie')->getData()
+            );
         }
 
         return $this->render('home.html.twig', [

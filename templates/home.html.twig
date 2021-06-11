@@ -3,8 +3,17 @@
 	Acceuil
 {% endblock %}
 {% block body %}
-	<h1 class="mb-4">Nos produits phares</h1>
-	<div class="row">
+	<h3 class="my-4">Vous cherchez un produit en particulier ?</h3>
+	<p>Rechercher un  produit en entrant un ou plusieurs mots clés.</p>
+	{{ form_start(form, {'attr':{'class':'form-inline mb-4'}}) }}
+	{{ form_label(form.mots) }}
+	{{ form_label(form.Rechercher) }}
+	{{ form_end(form) }}
+	<hr class="my-4">
+	<h1 class="my-4">Nos produits phares</h1>
+	{# {{form(form)}} #}
+
+	<div class="row my-3">
 		{% for p in products %}
 			<div class="col-md-6 col-lg-4">
 				<div class="card">
@@ -22,15 +31,17 @@
 							{{ p.shortDescription }}
 						</p>
 						<a href=" {{path('product_show', {
-																																																															'category_slug': p.category.slug,
-																																																															'slug': p.slug
-																																																															})}} " class="btn btn-primary btn-small">Détails</a>
+																																																																																																																																																																																																																																															'category_slug': p.category.slug,
+																																																																																																																																																																																																																																															'slug': p.slug
+																																																																																																																																																																																																																																															})}} " class="btn btn-primary btn-small">Détails</a>
 						<a href="#" class="btn btn-success btn-small">Ajouter</a>
 					</div>
 				</div>
 			</div>
 		{% endfor %}
 	</div>
+
+
 	<hr>
 	<h2>Un service irréprochable</h2>
 	<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum doloremque rem consequuntur excepturi, quaerat ducimus.</p>
